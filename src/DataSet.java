@@ -8,6 +8,13 @@ import java.util.Map;
  * @date 4/4/18
  **/
 
+ /**
+  * Reference:
+  * https://github.com/wihoho/KNN
+  * https://github.com/badlogic/knn
+  * https://github.com/Stephaniefan/knn
+  **/
+
 // Helper class to store @data
 public class DataSet{
 
@@ -50,7 +57,7 @@ public class DataSet{
         String[] texts = text.split(",");
         valueMap = new HashMap<String, Double>();
         Double tmp;
-        for(int i=0; i<list.size(); i++){
+        for(int i = 0; i < texts.length; i++){
 //            System.out.println(list.get(i));
             if(attributeMap.get(list.get(i)).isRealNum()){
                 tmp = Double.parseDouble(texts[i]);

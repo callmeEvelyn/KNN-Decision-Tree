@@ -3,25 +3,42 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * @author Shulin Huang
  * @date 4/5/18
  **/
+
+ /**
+  * Reference:
+  * https://github.com/wihoho/KNN
+  * https://github.com/badlogic/knn
+  * https://github.com/Stephaniefan/knn
+  **/
+  
 public class Task1 {
 
     public static void main(String[] args) {
         LoadData testData = new LoadData();
-        testData.loadData("testProdSelection.arff");
+        System.out.println("Please input the path to test files:");
+        Scanner scanner1 = new Scanner(System.in);
+//            System.out.println(scanner1.next());
+        testData.loadData(scanner1.nextLine());
+//            testData.loadData("testProdSelection.arff");
 
         LoadData trainData = new LoadData();
-        trainData.loadData("trainProdSelection.arff");
+        System.out.println("Please input the path to train files:");
+        Scanner scanner2 = new Scanner(System.in);
+//            System.out.println(scanner2.next());
+        trainData.loadData(scanner2.nextLine());
+//            trainData.loadData("trainProdSelection.arff");
 
         KNN knn = new KNN();
         // get the min&max for attributes
         Map<String, List<Double>> minmaxMap = knn.getMinMax(trainData);
 
-        //System.out.println(minmaxMap);
+//            System.out.println(minmaxMap);
 
         // matrix map for non numeric attributes
         Map<String, double[][]> marixMap = new HashMap<>();
@@ -32,12 +49,12 @@ public class Task1 {
 
         // map to store test weight, change that to check accuracy
         Map<String, Double> weightedMap = new HashMap<>();
-        weightedMap.put("Type", 0.2);
-        weightedMap.put("LifeStyle", 0.15);
-        weightedMap.put("Vacation", 0.05);
-        weightedMap.put("eCredit", 0.25);
-        weightedMap.put("salary", 0.15);
-        weightedMap.put("property", 0.2);
+        weightedMap.put("Type", 0.25);
+        weightedMap.put("LifeStyle", 0.0078125);
+        weightedMap.put("Vacation", 0.25);
+        weightedMap.put("eCredit", 1.0);
+        weightedMap.put("salary", 0.0078125);
+        weightedMap.put("property", 0.125);
 
         //normalize
         knn.nomarlize(minmaxMap, testData);
@@ -72,9 +89,8 @@ public class Task1 {
         loadData.setData(shuffle(loadData));
         List<DataSet> shuffleList = loadData.getDataSetList();
 
-        int total_correct = 0;
         double accuracy = 0;
-        double total_count = 0, correct_count;
+        double correct_count;
 
         String targetType = loadData.getNameList().get(loadData.getNameList().size() - 1); // for now => label
         Map<String, Double> map = loadData.getAttributeMap().get(targetType).getTypeValue();
@@ -93,10 +109,8 @@ public class Task1 {
             loadData.setData(trainData);
             for (DataSet dataSet : testData) {
                 if (dataSet.getValue(targetType) == map.get(knn.KNN(loadData, dataSet, weight, matrixMap, 3))) {
-                    total_correct++;
                     correct_count++;
                 }
-                total_count++;
             }
             //update load data back to the shuffled list
             if(i!=k-1) loadData.setData(shuffleList);
@@ -104,9 +118,6 @@ public class Task1 {
             System.out.println("[" + i + "]  accuracy is   "
                     + correct_count / testData.size());
         }
-        System.out.println("total_count" + total_count);
-        System.out.println("total_correct_count" + total_correct);
         return accuracy / k;
     }
 }
-

@@ -11,6 +11,13 @@ import java.util.Map;
  * @date 4/4/18
  **/
 
+ /**
+  * Reference:
+  * https://github.com/wihoho/KNN
+  * https://github.com/badlogic/knn
+  * https://github.com/Stephaniefan/knn
+  **/
+
 // Helper class to load data from file
 public class LoadData {
     // mapKey: attribute name, mapValue: attributeSet
@@ -33,6 +40,7 @@ public class LoadData {
     public void setData(List<DataSet> list){
         this.dataSetList = list;
     }
+
 
     public void loadData(String filename){
         File file = new File(filename);
@@ -76,8 +84,8 @@ public class LoadData {
     }
 
     public static void main(String[] args) {
-        LoadData loadData = new LoadData();
-        loadData.loadData("trainProdSelection.arff");
-        System.out.println(loadData.nameList);
+//        LoadData loadData = new LoadData();
+//        loadData.loadData("trainProdSelection.arff");
+//        System.out.println(loadData.nameList);
     }
 }

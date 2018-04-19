@@ -6,6 +6,13 @@ import java.util.Map;
  * @date 4/4/18
  **/
 
+ /**
+  * Reference:
+  * https://github.com/wihoho/KNN
+  * https://github.com/badlogic/knn
+  * https://github.com/Stephaniefan/knn
+  **/
+
 // Helper class to store attribute data for @attribute
 public class AttributeSet {
 
